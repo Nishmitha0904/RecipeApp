@@ -1,5 +1,5 @@
 # Recipe Management Application
-# A standalone java application which allows users to manage their favourite recipes
+A standalone java application which allows users to manage their favourite recipes
 
 # Features
 Add, Update, Remove and Fetch recipes
