@@ -67,7 +67,9 @@ public class RecipeService implements RecipeInterface {
         List<Recipe> recipes = jdbcTemplate.query("select * from recipes where recipe_id=?",
                 new Object[]{recipeId},
                 new RecipeMapper());
-        return recipes.isEmpty() ? Optional.empty() : Optional.of(recipes.get(0));
+        if (recipes.isEmpty())
+            throw new RecipeNotFoundException(recipeId);
+        return Optional.of(recipes.get(0));
     }
 
     @Override

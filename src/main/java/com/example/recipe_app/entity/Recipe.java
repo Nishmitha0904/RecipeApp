@@ -1,11 +1,18 @@
 package com.example.recipe_app.entity;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 public class Recipe {
     private Long recipeId;
+    @NotBlank(message = "Recipe name is required")
     private String recipeName;
     private boolean isVegetarian;
-    private int servings;
+    @NotNull(message = "Number of servings required")
+    private Integer servings;
+    @NotBlank(message = "Ingredients are required")
     private String ingredients;
+    @NotBlank(message = "Instructions are required")
     private String instructions;
 
     public Recipe() {
