@@ -82,36 +82,26 @@ public class RecipeService implements RecipeInterface {
         StringBuilder sqlBuilder = new StringBuilder("SELECT * FROM recipes WHERE 1=1");
         List<Object> params = new ArrayList<>();
 
-        // Vegetarian filter
         if (isVegetarian != null) {
             sqlBuilder.append(" AND is_vegetarian = ?");
             params.add(isVegetarian ? 1 : 0);
         }
-
-        // Servings filter
         if (servings != null) {
             sqlBuilder.append(" AND servings = ?");
             params.add(servings);
         }
-
-        // Include ingredient filter
         if (includeIngredient != null && !includeIngredient.isEmpty()) {
             sqlBuilder.append(" AND LOWER(ingredients) LIKE ?");
             params.add("%" + includeIngredient.toLowerCase() + "%");
         }
-
-        // Exclude ingredient filter
         if (excludeIngredient != null && !excludeIngredient.isEmpty()) {
             sqlBuilder.append(" AND LOWER(ingredients) NOT LIKE ?");
             params.add("%" + excludeIngredient.toLowerCase() + "%");
         }
-
-        // Instruction search filter
         if (instructionSearch != null && !instructionSearch.isEmpty()) {
             sqlBuilder.append(" AND LOWER(instructions) LIKE ?");
             params.add("%" + instructionSearch.toLowerCase() + "%");
         }
-
         return jdbcTemplate.query(
                 sqlBuilder.toString(),
                 new RecipeMapper(),
